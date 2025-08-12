@@ -13,14 +13,13 @@
   <link rel="preload" as="image" href="assets/img/IMG_3880.jpg">
   <link rel="preload" as="image" href="assets/img/IMG_3881.jpg">
   <link rel="preload" as="image" href="assets/img/IMG_3878.jpg">
-
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root{ --brand-blue:#0E59A2; --brand-gold:#C9A227; }
     .bg-brand-blue{ background-color:var(--brand-blue) }
     .brand-blue{ color:var(--brand-blue) }
-    .bg-brand-gold{ background-color:var(--brand-gold) }
-    .hero-img{ transition: opacity 600ms ease; }
+    .hero-img{ transition: opacity 500ms ease; }
+    .hero-bg{ filter: blur(16px) brightness(0.7); transform: scale(1.1); }
     .hero-dot{ width:10px; height:10px; }
   </style>
 </head>
@@ -49,24 +48,23 @@
     </div>
   </header>
 
-  <!-- Hero slider -->
+  <!-- Hero slider with object-contain over blurred background -->
   <section class="relative group">
-    <div class="relative h-[56vh] md:h-[68vh] overflow-hidden">
-      <img id="hero-img" src="assets/img/IMG_3880.jpg" alt="Front exterior" class="hero-img w-full h-full object-cover object-[50%_30%] opacity-100"/>
-      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none"></div>
+    <div class="relative h-[56vh] md:h-[68vh] overflow-hidden bg-black">
+      <img id="hero-bg" src="assets/img/IMG_3880.jpg" alt="" aria-hidden="true"
+           class="hero-bg absolute inset-0 w-full h-full object-cover opacity-90">
+      <img id="hero-img" src="assets/img/IMG_3880.jpg" alt="Front exterior"
+           class="hero-img relative z-10 w-full h-full object-contain" />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent pointer-events-none"></div>
 
       <!-- Prev/Next -->
       <button id="hero-prev" aria-label="Previous photo"
-        class="opacity-0 group-hover:opacity-100 transition-opacity absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/40 text-white w-10 h-10 grid place-items-center">
-        ‹
-      </button>
+        class="opacity-0 group-hover:opacity-100 transition-opacity absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/40 text-white w-10 h-10 grid place-items-center z-20">‹</button>
       <button id="hero-next" aria-label="Next photo"
-        class="opacity-0 group-hover:opacity-100 transition-opacity absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/40 text-white w-10 h-10 grid place-items-center">
-        ›
-      </button>
+        class="opacity-0 group-hover:opacity-100 transition-opacity absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/40 text-white w-10 h-10 grid place-items-center z-20">›</button>
 
       <!-- Caption block -->
-      <div class="absolute bottom-6 left-0 right-0">
+      <div class="absolute bottom-6 left-0 right-0 z-20">
         <div class="mx-auto max-w-6xl px-4">
           <div class="inline-flex items-center gap-2 rounded-full bg-white/95 px-3 py-1 text-xs md:text-sm shadow">765 Farringdon Ln, Burlingame, CA 94010</div>
           <h1 class="mt-3 text-white text-3xl md:text-5xl font-semibold leading-tight">Timeless Burlingame Charmer</h1>
@@ -81,9 +79,9 @@
     </div>
 
     <!-- Dots -->
-    <div class="absolute bottom-3 left-0 right-0">
+    <div class="absolute bottom-3 left-0 right-0 z-20">
       <div class="mx-auto max-w-6xl px-4 flex gap-2">
-        <div class="flex gap-2 bg-black/30 rounded-full p-2">
+        <div class="flex gap-2 bg-black/40 rounded-full p-2">
           <button class="hero-dot rounded-full bg-white/80" data-idx="0" aria-label="Slide 1"></button>
           <button class="hero-dot rounded-full bg-white/40" data-idx="1" aria-label="Slide 2"></button>
           <button class="hero-dot rounded-full bg-white/40" data-idx="2" aria-label="Slide 3"></button>
@@ -114,7 +112,7 @@
     </div>
   </section>
 
-  <!-- Details / Gallery / Map / Contact are identical to the last Formspree version -->
+  <!-- Details / Gallery / Map / Contact -->
   <section id="details" class="py-6">
     <div class="mx-auto max-w-6xl px-4 grid gap-6 md:grid-cols-3">
       <div class="md:col-span-2">
@@ -152,21 +150,16 @@
     </div>
   </section>
 
-  <!-- Gallery -->
+  <!-- Full gallery with all photos (deduped) -->
   <section id="gallery" class="py-10 md:py-12">
     <div class="mx-auto max-w-6xl px-4">
       <h2 class="text-2xl font-semibold mb-4">Gallery</h2>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-        <!-- Thumbnails auto-read from your repo; to keep this sample focused,
-             we just illustrate the hero changes -->
-        <a href="assets/img/IMG_3880.jpg" onclick="openLightbox(event, 'assets/img/IMG_3880.jpg')"><img src="assets/img/IMG_3880.jpg" alt="Exterior" class="w-full h-44 md:h-56 object-cover rounded-lg border shadow-sm"/></a>
-        <a href="assets/img/IMG_3881.jpg" onclick="openLightbox(event, 'assets/img/IMG_3881.jpg')"><img src="assets/img/IMG_3881.jpg" alt="Entry" class="w-full h-44 md:h-56 object-cover rounded-lg border shadow-sm"/></a>
-        <a href="assets/img/IMG_3878.jpg" onclick="openLightbox(event, 'assets/img/IMG_3878.jpg')"><img src="assets/img/IMG_3878.jpg" alt="Garden" class="w-full h-44 md:h-56 object-cover rounded-lg border shadow-sm"/></a>
+        <a href='assets/img/IMG_3880.jpg' onclick='openLightbox(event, "assets/img/IMG_3880.jpg")'><img loading='lazy' src='assets/img/IMG_3880.jpg' alt='Front steps and entry' class='w-full h-44 md:h-56 object-cover rounded-lg border shadow-sm'/></a><a href='assets/img/IMG_3881.jpg' onclick='openLightbox(event, "assets/img/IMG_3881.jpg")'><img loading='lazy' src='assets/img/IMG_3881.jpg' alt='Arched entry and door detail' class='w-full h-44 md:h-56 object-cover rounded-lg border shadow-sm'/></a><a href='assets/img/IMG_3878.jpg' onclick='openLightbox(event, "assets/img/IMG_3878.jpg")'><img loading='lazy' src='assets/img/IMG_3878.jpg' alt='Front garden and landscape' class='w-full h-44 md:h-56 object-cover rounded-lg border shadow-sm'/></a><a href='assets/img/IMG_3877.jpg' onclick='openLightbox(event, "assets/img/IMG_3877.jpg")'><img loading='lazy' src='assets/img/IMG_3877.jpg' alt='Exterior angle' class='w-full h-44 md:h-56 object-cover rounded-lg border shadow-sm'/></a><a href='assets/img/IMG_3882.jpg' onclick='openLightbox(event, "assets/img/IMG_3882.jpg")'><img loading='lazy' src='assets/img/IMG_3882.jpg' alt='Side yard / utilities' class='w-full h-44 md:h-56 object-cover rounded-lg border shadow-sm'/></a><a href='assets/img/IMG_3883.jpg' onclick='openLightbox(event, "assets/img/IMG_3883.jpg")'><img loading='lazy' src='assets/img/IMG_3883.jpg' alt='Back yard / patio' class='w-full h-44 md:h-56 object-cover rounded-lg border shadow-sm'/></a><a href='assets/img/IMG_3887.jpg' onclick='openLightbox(event, "assets/img/IMG_3887.jpg")'><img loading='lazy' src='assets/img/IMG_3887.jpg' alt='Interior view' class='w-full h-44 md:h-56 object-cover rounded-lg border shadow-sm'/></a><a href='assets/img/IMG_3888.jpg' onclick='openLightbox(event, "assets/img/IMG_3888.jpg")'><img loading='lazy' src='assets/img/IMG_3888.jpg' alt='Interior detail' class='w-full h-44 md:h-56 object-cover rounded-lg border shadow-sm'/></a><a href='assets/img/IMG_3889.jpg' onclick='openLightbox(event, "assets/img/IMG_3889.jpg")'><img loading='lazy' src='assets/img/IMG_3889.jpg' alt='Rear exterior' class='w-full h-44 md:h-56 object-cover rounded-lg border shadow-sm'/></a>
       </div>
     </div>
   </section>
 
-  <!-- Map -->
   <section id="map" class="py-10 md:py-12 bg-white border-t">
     <div class="mx-auto max-w-6xl px-4">
       <h2 class="text-2xl font-semibold mb-4">Location</h2>
@@ -176,7 +169,6 @@
     </div>
   </section>
 
-  <!-- Contact (Formspree) -->
   <section id="contact" class="py-10 md:py-12">
     <div class="mx-auto max-w-6xl px-4 grid gap-6 md:grid-cols-2">
       <div>
@@ -206,7 +198,6 @@
     </div>
   </section>
 
-  <!-- Footer with larger logo -->
   <footer class="border-t bg-white">
     <div class="mx-auto max-w-6xl px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-3">
@@ -222,7 +213,6 @@
     <img id="lightbox-img" class="max-h-[90vh] max-w-[92vw] rounded-lg shadow-lg border border-white/20" alt="Full-size image"/>
   </div>
   <script>
-    // Lightbox
     function openLightbox(e, src){
       e.preventDefault();
       document.getElementById('lightbox-img').src = src;
@@ -234,27 +224,27 @@
       document.getElementById('lightbox').classList.remove('flex');
     }
 
-    // Hero slider
+    // Hero slider logic with background + contain foreground
     const heroImages = ['assets/img/IMG_3880.jpg', 'assets/img/IMG_3881.jpg', 'assets/img/IMG_3878.jpg'];
     const heroImg = document.getElementById('hero-img');
+    const heroBg = document.getElementById('hero-bg');
     const dots = Array.from(document.querySelectorAll('.hero-dot'));
     let idx = 0, timer;
-
-    function show(i) {
+    function setSlide(i) {
       idx = (i + heroImages.length) % heroImages.length;
       dots.forEach((d,di)=> d.className = 'hero-dot rounded-full ' + (di===idx ? 'bg-white/80' : 'bg-white/40'));
       heroImg.style.opacity = 0;
-      setTimeout(()=>{ heroImg.src = heroImages[idx]; heroImg.style.opacity = 1; }, 300);
+      setTimeout(()=>{ heroImg.src = heroImages[idx]; heroBg.src = heroImages[idx]; heroImg.style.opacity = 1; }, 250);
     }
-    function next(){ show(idx+1); }
-    function prev(){ show(idx-1); }
+    function next(){ setSlide(idx+1); }
+    function prev(){ setSlide(idx-1); }
     function auto(){
       clearInterval(timer);
       timer = setInterval(next, 6000);
     }
     document.getElementById('hero-next').onclick = ()=>{ next(); auto(); };
     document.getElementById('hero-prev').onclick = ()=>{ prev(); auto(); };
-    dots.forEach(d=> d.onclick = ()=>{ show(parseInt(d.dataset.idx)); auto(); });
+    dots.forEach(d=> d.onclick = ()=>{ setSlide(parseInt(d.dataset.idx)); auto(); });
     auto();
   </script>
 </body>
